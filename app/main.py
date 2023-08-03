@@ -10,7 +10,7 @@ from langchain.chat_models import ChatOpenAI
 
 
 def qa(
-    question: str, repo_path: str, clone_url: str = None, branch: str = "master"
+    question: str, repo_path: str, clone_url: str | None = None, branch: str = "master"
 ) -> str:
     if os.path.exists(repo_path):
         clone_url = None
@@ -26,7 +26,7 @@ def qa(
 
     llm = ChatOpenAI(model="gpt-3.5-turbo-16k", temperature=0)
     qa_chain = RetrievalQA.from_chain_type(llm, retriever=retriver)
-    return qa_chain({"query": question})['result']
+    return qa_chain({"query": question})["result"]
 
 
 if __name__ == "__main__":

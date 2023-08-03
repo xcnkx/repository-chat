@@ -1,4 +1,3 @@
-import streamlit as st
 from langchain.vectorstores import Chroma
 from langchain.vectorstores.base import VectorStoreRetriever
 from langchain.embeddings.base import Embeddings
