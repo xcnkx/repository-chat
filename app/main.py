@@ -9,7 +9,9 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 
 
-def qa(question, repo_path, clone_url=None, branch="master"):
+def qa(
+    question: str, repo_path: str, clone_url: str = None, branch: str = "master"
+) -> str:
     if os.path.exists(repo_path):
         clone_url = None
 
@@ -24,7 +26,7 @@ def qa(question, repo_path, clone_url=None, branch="master"):
 
     llm = ChatOpenAI(model="gpt-3.5-turbo-16k", temperature=0)
     qa_chain = RetrievalQA.from_chain_type(llm, retriever=retriver)
-    return qa_chain({"query": question})
+    return qa_chain({"query": question})['result']
 
 
 if __name__ == "__main__":
@@ -34,4 +36,4 @@ if __name__ == "__main__":
     parser.add_argument("--clone-url", type=str, help="Clone url", default=None)
     parser.add_argument("--branch", type=str, help="Branch", default="master")
     args = parser.parse_args()
-    print(qa(args.question, args.repo_path, args.clone_url, args.branch)["result"])
+    print(qa(args.question, args.repo_path, args.clone_url, args.branch))
