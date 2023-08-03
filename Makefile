@@ -7,7 +7,7 @@ CONTAINER_NAME := tensaku_app
 .PHONY: fmt
 fmt:
 	poetry run black app tests
-	poetry run ruff check app --fix-only --exit-zero
+	poetry run ruff check --fix app
 
 .PHONY: lint
 lint:
